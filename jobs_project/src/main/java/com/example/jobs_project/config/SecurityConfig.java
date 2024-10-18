@@ -1,4 +1,4 @@
-package com.example.demo.of.security.config;
+package com.example.jobs_project.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -39,29 +35,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(customizer->customizer.disable());
-        http.authorizeHttpRequests(request->request.requestMatchers("register").permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests(request->request.requestMatchers("register","signup").permitAll().anyRequest().authenticated());
        //http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
-//Creates the different session
+      //Creates the different session
         http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
 
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user= User.withDefaultPasswordEncoder()
-//                .username("mahesh")
-//                .password("maa")
-//                .roles("USER")
-//                .build();
-//        UserDetails admin= User.withDefaultPasswordEncoder()
-//                .username("divya")
-//                .password("123")
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user,admin);
-//    }
+
 
 }
