@@ -1,12 +1,12 @@
-package com.example.demo.of.security.service;
+package com.example.jobs_project.service;
 
-import com.example.demo.of.security.dao.UserRepo;
-import com.example.demo.of.security.model.User;
+import com.example.jobs_project.model.User;
+import com.example.jobs_project.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -21,6 +21,14 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         System.out.println(user.getPassword());
         return userRepo.save(user);
+
+    }
+
+    public User findByUserName(String user) {
+        User userOptional= userRepo.findByUsername(user);
+        if(userOptional==null)
+            return null;
+        return userOptional;
 
     }
 }

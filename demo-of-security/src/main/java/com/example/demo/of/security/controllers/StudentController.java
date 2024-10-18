@@ -1,5 +1,6 @@
-package com.example.demo.of.security;
+package com.example.demo.of.security.controllers;
 
+import com.example.demo.of.security.model.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
